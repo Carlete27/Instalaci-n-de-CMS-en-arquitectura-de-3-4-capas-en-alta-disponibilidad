@@ -91,62 +91,51 @@ sudo apt install -y nfs-common
    ```bash
    sudo nano /etc/fstab
    ```
+   ![Captura de pantalla 2024-12-16 201503](https://github.com/user-attachments/assets/0c29dbb1-4300-4540-aa0b-1964a9a984e7)
+
 2. Añadir la siguiente línea:
    ```
-   192.168.50.10:/nfs/owncloud /var/www/html/owncloud nfs defaults 0 0
+   192.168.50.10:/nfs/owncloud /var/www/owncloud nfs defaults 0 0
    ```
+   ![Captura de pantalla 2024-12-16 201532](https://github.com/user-attachments/assets/bbf4fb68-a14f-4510-b534-36781a9ccacf)
+
 3. Montar el directorio:
    ```bash
    sudo mount -a
    ```
+   
 ![Montaje NFS](./capturas/montaje_nfs.png)
 
 ---
+![Captura de pantalla 2024-12-16 201602](https://github.com/user-attachments/assets/e3c5c216-6db4-4912-9e40-1d669b369882)
 
 ##### **4.3 Instalación de Nginx y PHP**
 ```bash
 sudo apt install -y nginx php-fpm
 ```
-![Instalación Nginx y PHP](./capturas/instalacion_nginx_php.png)
+
+![Captura de pantalla 2024-12-16 201652](https://github.com/user-attachments/assets/e488c6b7-478c-4197-ac3b-98cee16ae99e)
 
 ---
 
 ##### **4.4 Configuración del Servidor Nginx**
-1. Editar el archivo `/etc/nginx/sites-available/default`:
+1. Editar el archivo `/etc/nginx/sites-available/owncloud`:
    ```bash
-   sudo nano /etc/nginx/sites-available/default
+   sudo nano /etc/nginx/sites-available/owncloud
    ```
 
 2. Configurar la sección de PHP:
 
-   ```nginx
-   server {
-       listen 80;
+  ![Captura de pantalla 2024-12-16 201732](https://github.com/user-attachments/assets/18e847a0-0d34-47d0-b1b4-5e0790e90ead)
 
-       root /var/www/html/owncloud;
-       index index.php index.html;
-
-       location / {
-           try_files $uri $uri/ =404;
-       }
-
-       location ~ \.php$ {
-           include snippets/fastcgi-php.conf;
-           fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
-       }
-
-       location ~ /\.ht {
-           deny all;
-       }
-   }
-   ```
 ![Configuración Nginx PHP](./capturas/configuracion_nginx_php.png)
 
 3. Reiniciar Nginx:
    ```bash
    sudo systemctl restart nginx
    ```
-![Reinicio Nginx](./capturas/reinicio_nginx_php.png)
+
+![Captura de pantalla 2024-12-16 201833](https://github.com/user-attachments/assets/296b108e-5d3e-4858-bfb8-3acfb55b8f67)
 
 ---
 
@@ -156,29 +145,27 @@ sudo apt install -y nginx php-fpm
 ```bash
 sudo apt install -y mariadb-server
 ```
-![Instalación MariaDB](./capturas/instalacion_mariadb.png)
+![Captura de pantalla 2024-12-16 201909](https://github.com/user-attachments/assets/65420015-a923-47b8-bbe6-5829c9d42dab)
 
 ---
 
 ##### **5.2 Configuración de la Base de Datos**
 1. Acceder a MariaDB:
    ```bash
-   sudo mysql -u root
+   sudo mariadb
    ```
-2. Crear la base de datos y el usuario:
-   ```sql
-   CREATE DATABASE owncloud;
-   CREATE USER 'ownclouduser'@'%' IDENTIFIED BY 'password';
-   GRANT ALL PRIVILEGES ON owncloud.* TO 'ownclouduser'@'%';
-   FLUSH PRIVILEGES;
-   ```
-3. Salir del cliente MariaDB:
-   ```sql
-   EXIT;
-   ```
-![Configuración MariaDB](./capturas/configuracion_mariadb.png)
+   ![Captura de pantalla 2024-12-16 201951](https://github.com/user-attachments/assets/3925ad97-4bbb-408b-a6e9-7c062ae21853)
 
----
+2. Crear la base de datos y el usuario:
+
+CREATE DATABASE owncloud;
+CREATE USER 'owncloud_user'@'192.168.50.20' IDENTIFIED BY '12345';
+CREATE USER 'owncloud_user'@'192.168.50.30' IDENTIFIED BY '12345';
+CREATE USER 'owncloud_user'@'192.168.60.1' IDENTIFIED BY '12345';
+GRANT ALL PRIVILEGES ON owncloud.* TO 'owncloud_user'@'192.168.50.20';
+GRANT ALL PRIVILEGES ON owncloud.* TO 'owncloud_user'@'192.168.50.30';
+GRANT ALL PRIVILEGES ON owncloud.* TO 'owncloud_user'@'192.168.60.1';
+FLUSH PRIVILEGES;
 
 ##### **5.3 Configuración del Archivo `my.cnf`**
 Editar la configuración para aceptar conexiones remotas:
@@ -188,14 +175,13 @@ Editar la configuración para aceptar conexiones remotas:
    sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf
    ```
 2. Modificar la línea:
-   ```
-   bind-address = 0.0.0.0
-   ```
+  ![Captura de pantalla 2024-12-16 202229](https://github.com/user-attachments/assets/8ef3a18b-0e38-4019-a69f-f7e6efa2dc7a)
+
 3. Reiniciar MariaDB:
    ```bash
    sudo systemctl restart mariadb
    ```
-![Reinicio MariaDB](./capturas/reinicio_mariadb.png)
+   ![Captura de pantalla 2024-12-16 202318](https://github.com/user-attachments/assets/010df73a-2034-4078-b8ec-2be6ab1fd925)
 
 ---
 
