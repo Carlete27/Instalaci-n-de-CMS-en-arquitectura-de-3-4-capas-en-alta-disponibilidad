@@ -201,14 +201,5 @@ Editar la configuración para aceptar conexiones remotas:
 
 ---
 
-#### **6. Pruebas y Validaciones**
+## **6. Screencash**
 
-1. Acceder al **balanceador de carga** desde un navegador utilizando la dirección IP pública.
-2. Verificar que el tráfico se distribuye entre **Servidor Web 1** y **Servidor Web 2**.
-3. Comprobar que la aplicación OwnCloud es accesible y que los recursos se cargan desde el servidor **NFS**.
-4. Validar que la base de datos responde correctamente.
-
----
-
-## **7. Conclusiones**
-<ESPACIO PARA TEXTO
