@@ -68,8 +68,6 @@ sudo chmod 755 /nfs/owncloud
    
  ![image](https://github.com/user-attachments/assets/c583c9b1-499a-433c-8e7d-a5282c9d1039)
 
-![Configuración de exports](./capturas/configuracion_exports.png)
-
 ---
 
 ##### **3.4 Reinicio del Servicio NFS**
@@ -84,7 +82,7 @@ sudo systemctl restart nfs-kernel-server
 ```bash
 sudo apt install -y nfs-common
 ```
-![Instalación cliente NFS](./capturas/instalacion_cliente_nfs.png)
+![Captura de pantalla 2024-12-16 201436](https://github.com/user-attachments/assets/54e8605d-b410-4fa7-a830-88d946ae12cb)
 
 ---
 
