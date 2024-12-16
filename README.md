@@ -179,8 +179,3 @@ Editar la configuración para aceptar conexiones remotas:
    sudo systemctl restart mariadb
    ```
    ![Captura de pantalla 2024-12-16 202318](https://github.com/user-attachments/assets/010df73a-2034-4078-b8ec-2be6ab1fd925)
-
----
-
-## **6. Screencash**
-
