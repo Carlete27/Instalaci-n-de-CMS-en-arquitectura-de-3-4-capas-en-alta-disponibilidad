@@ -103,9 +103,6 @@ sudo apt install -y nfs-common
    ```bash
    sudo mount -a
    ```
-   
-![Montaje NFS](./capturas/montaje_nfs.png)
-
 ---
 ![Captura de pantalla 2024-12-16 201602](https://github.com/user-attachments/assets/e3c5c216-6db4-4912-9e40-1d669b369882)
 
