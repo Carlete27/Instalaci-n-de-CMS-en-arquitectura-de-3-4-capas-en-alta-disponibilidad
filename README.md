@@ -16,50 +16,28 @@ En esta práctica se despliega una infraestructura con **Vagrant** y **Nginx** p
 ```bash
 sudo apt update
 ```
-![Actualización de repositorios](./capturas/repositorios.png)
-
----
+![image](https://github.com/user-attachments/assets/2ed9ea96-de8a-472f-8030-bb5b5e62fe83)
 
 ##### **2.2 Instalación de Nginx**
 ```bash
 sudo apt install -y nginx
 ```
-![Instalación de Nginx](./capturas/instalacion_nginx.png)
-
----
+![image](https://github.com/user-attachments/assets/bf552d7e-9fe7-40cc-a361-da9fca7a62a2)
 
 ##### **2.3 Configuración del Balanceador de Carga**
 1. Acceder al archivo de configuración principal de Nginx:
    ```bash
-   sudo nano /etc/nginx/sites-available/default
+   sudo nano /etc/nginx/sites-available/load_balancer
    ```
 2. Configurar la sección `upstream` para los servidores web:
 
-   ```nginx
-   upstream backend {
-       server 192.168.50.11; # Servidor Web 1
-       server 192.168.50.12; # Servidor Web 2
-   }
-
-   server {
-       listen 80;
-
-       location / {
-           proxy_pass http://backend;
-       }
-   }
-   ```
-![Configuración del balanceador](./capturas/configuracion_balanceador.png)
-
----
+![image](https://github.com/user-attachments/assets/f439b675-8413-4bec-a6b5-df8ef9aacede)
 
 ##### **2.4 Reinicio del Servicio Nginx**
 ```bash
 sudo systemctl restart nginx
 ```
-![Reinicio de Nginx](./capturas/reinicio_nginx.png)
-
----
+![image](https://github.com/user-attachments/assets/24929ddb-aaef-43de-8e32-4f3a0c3c3ccf)
 
 #### **3. Configuración del Servidor NFS**
 
@@ -67,9 +45,8 @@ sudo systemctl restart nginx
 ```bash
 sudo apt install -y nfs-kernel-server
 ```
-![Instalación de NFS](./capturas/instalacion_nfs.png)
+![image](https://github.com/user-attachments/assets/af91fb8a-0a1f-44c3-89af-b44db5119765)
 
----
 
 ##### **3.2 Creación del Directorio Compartido**
 ```bash
@@ -77,19 +54,20 @@ sudo mkdir -p /nfs/owncloud
 sudo chown -R nobody:nogroup /nfs/owncloud
 sudo chmod 755 /nfs/owncloud
 ```
-![Creación de directorio NFS](./capturas/creacion_directorio_nfs.png)
-
----
+![image](https://github.com/user-attachments/assets/c3a625e8-0229-41fe-8bfa-1901c2cd935a)
+![image](https://github.com/user-attachments/assets/f08abfe8-6a74-42b1-8a0a-4a65a78aef85)
 
 ##### **3.3 Configuración del Archivo `/etc/exports`**
 1. Editar el archivo:
    ```bash
    sudo nano /etc/exports
    ```
+   ![image](https://github.com/user-attachments/assets/c0ac18c7-0b55-4590-924a-cca2af7266af)
+
 2. Añadir la exportación para los servidores web:
-   ```
-   /nfs/owncloud 192.168.50.11(rw,sync,no_root_squash) 192.168.50.12(rw,sync,no_root_squash)
-   ```
+   
+ ![image](https://github.com/user-attachments/assets/c583c9b1-499a-433c-8e7d-a5282c9d1039)
+
 ![Configuración de exports](./capturas/configuracion_exports.png)
 
 ---
@@ -98,9 +76,7 @@ sudo chmod 755 /nfs/owncloud
 ```bash
 sudo systemctl restart nfs-kernel-server
 ```
-![Reinicio de NFS](./capturas/reinicio_nfs.png)
-
----
+![image](https://github.com/user-attachments/assets/e45760d4-3f58-49bb-95af-d902dc9e40b2)
 
 #### **4. Configuración de los Servidores Web**
 
